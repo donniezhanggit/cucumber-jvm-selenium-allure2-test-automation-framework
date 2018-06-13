@@ -67,8 +67,8 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>${maven.failsafe.version}</version>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
                 <configuration>
                     <excludes>
                         <exclude>**/TestExecutionValidator.java</exclude>
@@ -104,7 +104,7 @@
                         <id>test-init</id>
                         <phase>process-test-classes</phase>
                         <goals>
-                            <goal>integration-test</goal>
+                            <goal>test</goal>
                         </goals>
                         <configuration>
                             <test>TestExecutionValidator</test>

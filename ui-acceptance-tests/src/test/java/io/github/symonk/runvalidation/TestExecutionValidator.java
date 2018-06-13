@@ -1,6 +1,5 @@
 package io.github.symonk.runvalidation;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,8 +18,6 @@ public class TestExecutionValidator extends AbstractTestNGSpringContextTests {
     public void validateRunConditionsHere() {
         log.info("Test run instantiated...validating conditions");
         testExecutionListener.checkEnvironmentIsOnline();
-        WebDriverManager.chromedriver().targetPath(downloadDirectory).setup();
-        WebDriverManager.firefoxdriver().targetPath(downloadDirectory).setup();
     }
 
 }

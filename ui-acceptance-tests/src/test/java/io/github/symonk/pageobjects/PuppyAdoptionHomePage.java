@@ -1,6 +1,7 @@
 package io.github.symonk.pageobjects;
 
 import io.github.symonk.common.enums.Puppy;
+import io.github.symonk.common.waits.FrameworkWaits;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,7 +20,7 @@ public class PuppyAdoptionHomePage extends AbstractBasePage {
     private WebElement viewDetailsOnHannah;
 
     @Autowired
-    public PuppyAdoptionHomePage(WebDriver webdriver, WebDriverWait explicitWait, String pageUrl) {
+    public PuppyAdoptionHomePage(WebDriver webdriver, FrameworkWaits explicitWait, String pageUrl) {
         super(webdriver, explicitWait);
         this.pageUrl = pageUrl;
     }

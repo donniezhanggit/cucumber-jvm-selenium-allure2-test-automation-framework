@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class AbstractBaseStepDef {
 
-    @Autowired @Getter(AccessLevel.PROTECTED)  AutomationProperties properties;
-    @Autowired @Getter(AccessLevel.PROTECTED) TestWorld testWorld;
+    @Autowired protected AutomationProperties properties;
+    @Autowired protected TestWorld testWorld;
 
 }

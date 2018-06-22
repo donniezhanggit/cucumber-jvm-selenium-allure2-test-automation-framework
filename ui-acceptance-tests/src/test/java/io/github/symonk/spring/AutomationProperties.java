@@ -4,6 +4,9 @@ import io.github.symonk.helpers.localisation.LanguageType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AutomationProperties {
 
   @Autowired private Environment environment;
@@ -38,6 +41,19 @@ public class AutomationProperties {
 
   public int getExplicitWaitTimeout() {
     return Integer.valueOf(environment.getProperty("explicit.wait.timeout.seconds"));
+  }
+
+  public Map<String, String> getAllPropertiesAsStrings() {
+    return new HashMap<String, String>() {
+      {
+        put("application.baseurl", getBaseEnvironmentUrl());
+        put("slack.api.token", getSlackApiToken());
+        put("use.selenium.grid", String.valueOf(getRunOnSeleniumGrid()));
+        put("selenium.grid.endpoint", getSeleniumGridEndpoint());
+        put("platform", getPlatform());
+        put("explicit.wait.timeout", String.valueOf(getExplicitWaitTimeout()));
+      }
+    };
   }
 
 }

@@ -10,14 +10,18 @@ import org.testng.annotations.Test;
 @ContextConfiguration(classes = TestExecutionSpringConfig.class)
 public class TestExecutionValidator extends AbstractTestNGSpringContextTests {
 
-    @Autowired
     private TestExecutionListener testExecutionListener;
-    private final String downloadDirectory = "src/test/resources/binaries";
+
+    @Autowired
+    public TestExecutionValidator(TestExecutionListener testExecutionListener) {
+        this.testExecutionListener = testExecutionListener;
+    }
 
     @Test
     public void validateRunConditionsHere() {
         log.info("Test run instantiated...validating conditions");
         testExecutionListener.checkEnvironmentIsOnline();
+        testExecutionListener.pushReportEnvironmentDataToDirectory();
     }
 
 }

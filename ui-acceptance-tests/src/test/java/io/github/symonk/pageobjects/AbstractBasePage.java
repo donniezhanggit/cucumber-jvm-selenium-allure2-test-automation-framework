@@ -1,27 +1,26 @@
 package io.github.symonk.pageobjects;
 
+import io.github.symonk.common.waits.FrameworkWaits;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 @Slf4j
 public class AbstractBasePage {
 
-  @Autowired @Getter(AccessLevel.PROTECTED) private ApplicationContext applicationContext;
-  @Getter(AccessLevel.PROTECTED) private WebDriver webdriver;
-  @Getter(AccessLevel.PROTECTED) private WebDriverWait explicitWait;
+  @Autowired protected ApplicationContext applicationContext;
+  protected WebDriver webdriver;
+  protected FrameworkWaits expectedConditions;
 
   @Autowired
-  public AbstractBasePage(WebDriver webdriver, WebDriverWait explicitWait) {
+  public AbstractBasePage(WebDriver webdriver, FrameworkWaits waits) {
     this.webdriver = webdriver;
-    this.explicitWait = explicitWait;
+    this.expectedConditions = waits;
     PageFactory.initElements(webdriver, this);
   }
 
@@ -30,7 +29,7 @@ public class AbstractBasePage {
   }
 
   public void setElementTextValue(WebElement elementToSetTextOn, String text) {
-    explicitWait.until(ExpectedConditions.elementToBeClickable(elementToSetTextOn));
+    expectedConditions.waitUntilElementIsClickable(elementToSetTextOn);
     elementToSetTextOn.clear();
     elementToSetTextOn.sendKeys(text);
   }

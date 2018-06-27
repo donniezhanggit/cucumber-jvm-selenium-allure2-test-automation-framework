@@ -1,6 +1,7 @@
 package io.github.symonk.spring;
 
-import io.github.symonk.cucumber.TestWorld;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.symonk.common.waits.FrameworkWaits;
 import io.github.symonk.helpers.localisation.ResourceHelper;
 import io.github.symonk.helpers.logging.LogHelper;
 import io.github.symonk.helpers.logging.Loggable;
@@ -20,9 +21,13 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value = {"classpath:/framework.properties"})
 public class SpringConfiguration {
 
+  static {
+    WebDriverManager.chromedriver().setup();
+  }
+
   @Bean
   public PuppyAdoptionHomePage puppyAdoptionHomePage() {
-    return new PuppyAdoptionHomePage(driver(), explicitWait(), properties().getBaseEnvironmentUrl());
+    return new PuppyAdoptionHomePage(driver(), frameworkExpectedConditions(), properties().getBaseEnvironmentUrl());
   }
 
   @Bean
@@ -65,7 +70,7 @@ public class SpringConfiguration {
   }
 
   @Bean
-  public TestWorld testWorld() {
-    return new TestWorld();
+  public FrameworkWaits frameworkExpectedConditions() {
+    return new FrameworkWaits(driver(),  properties().getExplicitWaitTimeout());
   }
 }

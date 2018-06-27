@@ -10,12 +10,7 @@ import org.testng.annotations.Test;
 @ContextConfiguration(classes = TestExecutionSpringConfig.class)
 public class TestExecutionValidator extends AbstractTestNGSpringContextTests {
 
-    private TestExecutionListener testExecutionListener;
-
-    @Autowired
-    public TestExecutionValidator(TestExecutionListener testExecutionListener) {
-        this.testExecutionListener = testExecutionListener;
-    }
+    @Autowired private TestExecutionListener testExecutionListener;
 
     @Test
     public void validateRunConditionsHere() {

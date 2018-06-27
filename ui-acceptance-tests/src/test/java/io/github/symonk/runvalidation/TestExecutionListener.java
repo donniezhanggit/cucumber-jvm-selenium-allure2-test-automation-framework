@@ -49,7 +49,7 @@ public class TestExecutionListener {
                 }
                 Files.createFile(pathToFile);
                 fos = new FileOutputStream(pathToFile.toString());
-                props.store(fos, "Philips Reporting Properties");
+                props.store(fos, "Example Reporting Properties");
             } catch (IOException exception) {
                 abortTheTestRun("IO exception occurred when trying to include the environment report properties");
             } finally {

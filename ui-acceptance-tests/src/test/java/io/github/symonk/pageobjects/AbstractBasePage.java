@@ -4,6 +4,8 @@ import io.github.symonk.common.waits.FrameworkWaits;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -21,7 +23,6 @@ public class AbstractBasePage {
   public AbstractBasePage(WebDriver webdriver, FrameworkWaits waits) {
     this.webdriver = webdriver;
     this.expectedConditions = waits;
-    PageFactory.initElements(webdriver, this);
   }
 
   public void navigateToPageAndWait(String url) {
@@ -33,4 +34,19 @@ public class AbstractBasePage {
     elementToSetTextOn.clear();
     elementToSetTextOn.sendKeys(text);
   }
+
+  public void clickElement(By by) {
+    int attempts = 5;
+    while (attempts > 0) {
+      try {
+        expectedConditions.waitUntilElementIsPresent(by);
+        webdriver.findElement(by).click();
+        break;
+      } catch (final StaleElementReferenceException ignored) {
+        log.error("Stale element reference detected, retrying!");
+        attempts--;
+      }
+    }
+  }
+
 }

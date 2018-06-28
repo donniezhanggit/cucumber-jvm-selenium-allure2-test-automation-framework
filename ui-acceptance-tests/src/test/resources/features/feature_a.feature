@@ -6,6 +6,6 @@ Feature: Feature number 1
 
 
   Scenario: User adopts a puppy 002
-    Given the puppy adoption page has been loaded
+    Given a browser has loaded the puppy adoption site
     When brook is adopted successfully
     Then the adoption successful message is shown

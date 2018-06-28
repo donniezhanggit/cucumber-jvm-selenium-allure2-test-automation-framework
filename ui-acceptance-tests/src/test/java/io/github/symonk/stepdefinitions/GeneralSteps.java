@@ -1,30 +1,32 @@
 package io.github.symonk.stepdefinitions;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.symonk.helpers.localisation.ResourceHelper;
+import io.github.symonk.pageobjects.PuppyAdoptionHomePage;
 import io.github.symonk.spring.AutomationProperties;
 import io.github.symonk.webdriver.Driver;
 import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
 public class GeneralSteps {
 
-  @Autowired private Driver driver;
-  @Autowired private AutomationProperties properties;
-  @Autowired private ResourceHelper resourceHelper;
+  private WebDriver driver;
+  private AutomationProperties properties;
+  private ResourceHelper resourceHelper;
+  private PuppyAdoptionHomePage puppyAdoptionHomePage;
 
-  @Given("^Something or other$")
-  public void something_or_other() {
-    driver.get(properties.getBaseEnvironmentUrl());
-    log.info("language settings:" + resourceHelper.getResourceValue("foo"));
+  @Autowired
+  public GeneralSteps(WebDriver driver, AutomationProperties properties, ResourceHelper resourceHelper, PuppyAdoptionHomePage puppyAdoptionHomePage) {
+    this.driver = driver;
+    this.properties = properties;
+    this.resourceHelper = resourceHelper;
+    this.puppyAdoptionHomePage = puppyAdoptionHomePage;
   }
 
-  @Then("^the price of adoption is (.+)$")
-  public void thePriceOfAdoptionIs$(int arg0) {
-
+  @Given("^a browser has loaded the puppy adoption site$")
+  public void something_or_other() {
+    puppyAdoptionHomePage.open();
   }
 }

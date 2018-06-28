@@ -4,5 +4,5 @@ public enum Puppy {
     BROOK,
     HANNA,
     MAGGIE_MAE,
-    RUBY_SUE;
+    RUBY_SUE
 }

@@ -9,7 +9,7 @@ public class CleanupHooks {
     private TestWorld testWorld;
 
     @Autowired
-    public CleanupHooks(TestWorld testWorld) {
+    public CleanupHooks(final TestWorld testWorld) {
         this.testWorld = testWorld;
     }
 

@@ -6,6 +6,6 @@ Feature: Feature number 1
 
   @issue=001 @tmsLink=002 @severity.Critical
   Scenario: User adopts a puppy 002
-    Given the puppy adoption page has been loaded
-    When someone chooses to adopt brook
+    Given an order has been prepared
+    When the order is successfully processed
     Then the adoption successful message is shown

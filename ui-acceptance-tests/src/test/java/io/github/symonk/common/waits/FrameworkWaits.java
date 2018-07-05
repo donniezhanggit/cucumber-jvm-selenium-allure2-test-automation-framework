@@ -35,15 +35,12 @@ public class FrameworkWaits {
 
     public void waitUntilJavascriptAndJQueryHaveFinishedLoading() {
         wait.until((webDriver) -> ((Long) jsExecutor.executeScript("return jQuery.active") == 0) &&
-        jsExecutor.executeScript("return document.readyState").toString().equals("complete"));
+                jsExecutor.executeScript("return document.readyState").toString().equals("complete"));
     }
 
     public void waitForIFrameByIndexAndThenSwitchToItWhenReady(final int index) {
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(index));
     }
-
-
-
 
 
 }

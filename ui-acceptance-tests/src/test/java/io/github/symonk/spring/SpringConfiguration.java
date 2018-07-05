@@ -20,52 +20,53 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value = {"classpath:/framework.properties"})
 public class SpringConfiguration {
 
-  @Bean
-  public PuppyAdoptionHomePage puppyAdoptionHomePage() {
-    return new PuppyAdoptionHomePage(driver(), frameworkExpectedConditions());
-  }
+    @Bean
+    public PuppyAdoptionHomePage puppyAdoptionHomePage() {
+        return new PuppyAdoptionHomePage(driver(), frameworkExpectedConditions());
+    }
 
-  @Bean
-  public WebDriverWait explicitWait() {
-    return new WebDriverWait(driver(), properties().getExplicitWaitTimeout());
-  }
+    @Bean
+    public WebDriverWait explicitWait() {
+        return new WebDriverWait(driver(), properties().getExplicitWaitTimeout());
+    }
 
-  @Bean
-  public TestExecutionListener testExecutionListener() {
-    return new TestExecutionListener();
-  }
+    @Bean
+    public TestExecutionListener testExecutionListener() {
+        return new TestExecutionListener();
+    }
 
-  @Bean
-  public Driver driver() {
-    return new Driver(driverSupplier());
-  }
+    @Bean
+    public Driver driver() {
+        return new Driver(driverSupplier());
+    }
 
-  @Bean DriverSupplier driverSupplier() {
-    return new DriverSupplier(properties());
-  }
+    @Bean
+    DriverSupplier driverSupplier() {
+        return new DriverSupplier(properties());
+    }
 
-  @Bean
-  public AutomationProperties properties() {
-    return new AutomationProperties();
-  }
+    @Bean
+    public AutomationProperties properties() {
+        return new AutomationProperties();
+    }
 
-  @Bean
-  public SlackApi slackHelper() {
-    return new SlackApi(properties().getSlackApiToken());
-  }
+    @Bean
+    public SlackApi slackHelper() {
+        return new SlackApi(properties().getSlackApiToken());
+    }
 
-  @Bean
-  public Loggable logHelper() {
-    return new LogHelper();
-  }
+    @Bean
+    public Loggable logHelper() {
+        return new LogHelper();
+    }
 
-  @Bean
-  public ResourceHelper resourceHelper() {
-    return new ResourceHelper(properties().getLanguage());
-  }
+    @Bean
+    public ResourceHelper resourceHelper() {
+        return new ResourceHelper(properties().getLanguage());
+    }
 
-  @Bean
-  public FrameworkWaits frameworkExpectedConditions() {
-    return new FrameworkWaits(driver(),  properties().getExplicitWaitTimeout());
-  }
+    @Bean
+    public FrameworkWaits frameworkExpectedConditions() {
+        return new FrameworkWaits(driver(), properties().getExplicitWaitTimeout());
+    }
 }

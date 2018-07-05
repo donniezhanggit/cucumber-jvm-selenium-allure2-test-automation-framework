@@ -8,19 +8,18 @@ import java.util.Map;
 @Slf4j
 public class ResourceHelper implements ReadsResources {
 
-  private LanguageType language;
-  private Map<String, String> resources;
+    private LanguageType language;
+    private Map<String, String> resources;
 
-  @Autowired
-  public ResourceHelper(LanguageType language) {
-    resources = language.parsePropertiesAsMap();
-  }
+    @Autowired
+    public ResourceHelper(LanguageType language) {
+        resources = language.parsePropertiesAsMap();
+    }
 
-  @Override
-  public String getResourceValue(String resourceKey) {
-    return resources.get(resourceKey);
-  }
-
+    @Override
+    public String getResourceValue(String resourceKey) {
+        return resources.get(resourceKey);
+    }
 
 
 }

@@ -10,8 +10,10 @@ import java.util.List;
 @Slf4j
 public class TestWorld {
 
-    @Getter private Order currentOrder;
-    @Getter private List<Order> scenarioOrders = new ArrayList<>();
+    @Getter
+    private Order currentOrder;
+    @Getter
+    private List<Order> scenarioOrders = new ArrayList<>();
 
 
     public void cleanUpWorld() {

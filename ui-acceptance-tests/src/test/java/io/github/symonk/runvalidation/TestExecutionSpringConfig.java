@@ -11,13 +11,13 @@ import org.springframework.context.annotation.PropertySource;
 @Slf4j
 public class TestExecutionSpringConfig {
 
-  @Bean
-  public AutomationProperties properties() {
-    return new AutomationProperties();
-  }
+    @Bean
+    public AutomationProperties properties() {
+        return new AutomationProperties();
+    }
 
-  @Bean
-  public TestExecutionListener testExecutionListener() {
-    return new TestExecutionListener();
-  }
+    @Bean
+    public TestExecutionListener testExecutionListener() {
+        return new TestExecutionListener();
+    }
 }

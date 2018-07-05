@@ -5,5 +5,5 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 public interface PreparesDriver {
 
-  RemoteWebDriver getWebDriver(MutableCapabilities capabilities);
+    RemoteWebDriver getWebDriver(MutableCapabilities capabilities);
 }

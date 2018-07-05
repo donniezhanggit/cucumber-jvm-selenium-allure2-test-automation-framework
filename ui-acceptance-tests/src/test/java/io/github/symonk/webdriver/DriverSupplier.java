@@ -4,7 +4,6 @@ import io.github.symonk.common.exceptions.InvalidBrowserSpecifiedException;
 import io.github.symonk.common.exceptions.InvalidUrlException;
 import io.github.symonk.spring.AutomationProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -18,72 +17,72 @@ import java.net.URL;
 @Slf4j
 public class DriverSupplier {
 
-  private final boolean useSeleniumGrid;
-  private final String browser;
-  private final String seleniumGridEndpoint;
-  private final String platform;
+    private final boolean useSeleniumGrid;
+    private final String browser;
+    private final String seleniumGridEndpoint;
+    private final String platform;
 
-  @Autowired
-  public DriverSupplier(AutomationProperties properties) {
-    this.useSeleniumGrid = properties.getRunOnSeleniumGrid();
-    this.browser = properties.getBrowser();
-    this.seleniumGridEndpoint = properties.getSeleniumGridEndpoint();
-    this.platform = properties.getPlatform();
-  }
-
-  public RemoteWebDriver instantiateASharedDriver() {
-    log.info("Requesting a new driver instance...");
-    if (useSeleniumGrid)
-      log.info("RemoteWebDriver and selenium grid endpoint: " + seleniumGridEndpoint);
-    if (!isDriverChrome() && !isDriverFirefox())
-      throw new InvalidBrowserSpecifiedException("Unsupported browser type specified at runtime");
-    return buildDriver();
-  }
-
-  private RemoteWebDriver buildDriver() {
-    MutableCapabilities capabilities = new DesiredCapabilities();
-    DriverType typeOfBrowser = DriverType.valueOf(browser);
-    RemoteWebDriver temp;
-
-    if (useSeleniumGrid) {
-      if (isDriverChrome()) return buildDistributedChromeDriver();
-      if (isDriverFirefox()) return buildDistributedFirefoxDriver();
+    @Autowired
+    public DriverSupplier(AutomationProperties properties) {
+        this.useSeleniumGrid = properties.getRunOnSeleniumGrid();
+        this.browser = properties.getBrowser();
+        this.seleniumGridEndpoint = properties.getSeleniumGridEndpoint();
+        this.platform = properties.getPlatform();
     }
 
-    temp = typeOfBrowser.getWebDriver(capabilities);
-    if (null != temp && isDriverFirefox()) temp.manage().window().maximize();
-    return temp;
-  }
-
-  private URL prepareGridUrl() {
-    URL temp;
-    try {
-      temp = new URL(seleniumGridEndpoint);
-    } catch (MalformedURLException exception) {
-      throw new InvalidUrlException(
-          "Specified grid endpoint was not valid: " + seleniumGridEndpoint);
+    public RemoteWebDriver instantiateASharedDriver() {
+        log.info("Requesting a new driver instance...");
+        if (useSeleniumGrid)
+            log.info("RemoteWebDriver and selenium grid endpoint: " + seleniumGridEndpoint);
+        if (!isDriverChrome() && !isDriverFirefox())
+            throw new InvalidBrowserSpecifiedException("Unsupported browser type specified at runtime");
+        return buildDriver();
     }
 
-    return temp;
-  }
+    private RemoteWebDriver buildDriver() {
+        MutableCapabilities capabilities = new DesiredCapabilities();
+        DriverType typeOfBrowser = DriverType.valueOf(browser);
+        RemoteWebDriver temp;
 
-  private RemoteWebDriver buildDistributedChromeDriver() {
-    ChromeOptions options = DriverType.getChromeCapabilities();
-    options.setCapability("platformName", platform);
-    return new RemoteWebDriver(prepareGridUrl(), options);
-  }
+        if (useSeleniumGrid) {
+            if (isDriverChrome()) return buildDistributedChromeDriver();
+            if (isDriverFirefox()) return buildDistributedFirefoxDriver();
+        }
 
-  private RemoteWebDriver buildDistributedFirefoxDriver() {
-    FirefoxOptions options = DriverType.getFirefoxCapabilities();
-    options.setCapability("platformName", platform);
-    return new RemoteWebDriver(prepareGridUrl(), options);
-  }
+        temp = typeOfBrowser.getWebDriver(capabilities);
+        if (null != temp && isDriverFirefox()) temp.manage().window().maximize();
+        return temp;
+    }
 
-  private boolean isDriverFirefox() {
-    return browser.equals("FIREFOX");
-  }
+    private URL prepareGridUrl() {
+        URL temp;
+        try {
+            temp = new URL(seleniumGridEndpoint);
+        } catch (MalformedURLException exception) {
+            throw new InvalidUrlException(
+                    "Specified grid endpoint was not valid: " + seleniumGridEndpoint);
+        }
 
-  private boolean isDriverChrome() {
-    return browser.equals("CHROME");
-  }
+        return temp;
+    }
+
+    private RemoteWebDriver buildDistributedChromeDriver() {
+        ChromeOptions options = DriverType.getChromeCapabilities();
+        options.setCapability("platformName", platform);
+        return new RemoteWebDriver(prepareGridUrl(), options);
+    }
+
+    private RemoteWebDriver buildDistributedFirefoxDriver() {
+        FirefoxOptions options = DriverType.getFirefoxCapabilities();
+        options.setCapability("platformName", platform);
+        return new RemoteWebDriver(prepareGridUrl(), options);
+    }
+
+    private boolean isDriverFirefox() {
+        return browser.equals("FIREFOX");
+    }
+
+    private boolean isDriverChrome() {
+        return browser.equals("CHROME");
+    }
 }

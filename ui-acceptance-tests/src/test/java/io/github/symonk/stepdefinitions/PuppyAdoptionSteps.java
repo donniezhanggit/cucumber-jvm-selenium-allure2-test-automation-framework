@@ -28,12 +28,12 @@ public class PuppyAdoptionSteps {
     }
 
     @Given("^an order has been prepared$")
-    public void the_puppy_adoption_page_has_been_loaded() {
+    public void an_order_has_been_prepared() {
         testWorld.setCurrentOrder(orderProvider.getRandomOrder());
     }
 
-    @When("^the order is successfully processed")
-    public void someoneChoosesToAdoptBrook() {
+    @When("^the order is processed")
+    public void the_order_is_processed() {
         puppyAdoptionHomePage.open();
         puppyAdoptionHomePage.adoptADog(testWorld.getCurrentOrder().getDogName());
         puppyInformationPage.pressAdoptMe();

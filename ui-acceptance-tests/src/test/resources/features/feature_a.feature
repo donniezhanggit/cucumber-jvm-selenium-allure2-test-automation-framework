@@ -7,5 +7,5 @@ Feature: Feature number 1
   @issue=001 @tmsLink=002 @severity.Critical
   Scenario: User adopts a puppy 002
     Given an order has been prepared
-    When the order is successfully processed
+    When the order is processed
     Then the adoption successful message is shown
